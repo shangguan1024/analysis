@@ -1,0 +1,307 @@
+<mxfile host="Electron" agent="opencode" pages="3">
+  <diagram id="page-current" name="1-现有拓扑">
+    <mxGraphModel dx="1664" dy="989" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="950" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="a-title" parent="1" style="text;html=1;fontSize=16;fontStyle=1;" value="现状: query → 表单硬编码选 DAG + 节点内分散决策 (T6 / T11)" vertex="1">
+          <mxGeometry height="30" width="1200" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a-q" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="用户 query&lt;br&gt;「做一个忍者跑酷游戏」" vertex="1">
+          <mxGeometry height="50" width="230" x="60" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="a-post" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="POST /api/v1/projects&lt;br&gt;body: { input, options{projectType:&#39;app&#39;|&#39;game&#39;},&lt;br&gt;templateId?, designSystemId? }" vertex="1">
+          <mxGeometry height="70" width="270" x="60" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="a-server" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="server (L9)&lt;br&gt;T2 normalizeProjectOptions&lt;br&gt;T3 预选注入 options.advanced&lt;br&gt;T6 ★ isGame = (projectType===&#39;game&#39;)&lt;br&gt;&lt;b&gt;表单字段判定 — 不读 query&lt;/b&gt;" vertex="1">
+          <mxGeometry height="130" width="270" x="60" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="a-dag1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=13;" value="create.yaml — app 通用管线 (15 节点)" vertex="1">
+          <mxGeometry height="560" width="670" x="420" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="a-d1note" parent="1" style="text;html=1;fontSize=11;fontColor=#666666;whiteSpace=wrap;" value="其余节点: app-name→app-icon(opt) · base-scaffold→base-install · sdk-scaffold→sdk-install · resource-gen(opt) · data-image-gen(opt)" vertex="1">
+          <mxGeometry height="40" width="630" x="440" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a-c1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="scene-template ★T11a&lt;br&gt;classifyScene 轻量 LLM&lt;br&gt;(模板匹配, 节点内自决)" vertex="1">
+          <mxGeometry height="55" width="190" x="450" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="a-c2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="web-research (可选)" vertex="1">
+          <mxGeometry height="40" width="190" x="450" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="a-c3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="spec-app&lt;br&gt;PRD + projection&lt;br&gt;+ fanout 源 (derivedTasks)" vertex="1">
+          <mxGeometry height="65" width="190" x="450" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="a-c4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="open-design ★T11b&lt;br&gt;useOpenDesign 开关互斥&lt;br&gt;&lt;b&gt;(开关断路→恒skip)&lt;/b&gt;&lt;br&gt;内含 od-select agent (不可达)" vertex="1">
+          <mxGeometry height="75" width="200" x="450" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="a-c5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="front-design ★T11c&lt;br&gt;useOpenDesign!==true 恒跑&lt;br&gt;design-theme agent&lt;br&gt;&lt;b&gt;(当前实际默认路径)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="75" width="200" x="680" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="a-c6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="data-def → data-gen&lt;br&gt;→ data-image-gen(opt)" vertex="1">
+          <mxGeometry height="65" width="190" x="680" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="a-c7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="code-page ×N&lt;br&gt;(fanout: spec-app, 每页一个 agent)" vertex="1">
+          <mxGeometry height="50" width="190" x="450" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="a-c8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="integrate → build" vertex="1">
+          <mxGeometry height="40" width="190" x="450" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="a-dag2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=13;" value="create-phaser-game.yaml — game 垂类 (3 节点)" vertex="1">
+          <mxGeometry height="310" width="350" x="1140" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="a-g1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="app-name" vertex="1">
+          <mxGeometry height="40" width="290" x="1170" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="a-g2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="app-icon (optional)" vertex="1">
+          <mxGeometry height="40" width="290" x="1170" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="a-g3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="phaser-game-create&lt;br&gt;骨架拷贝 → pnpm install → skills 挂载&lt;br&gt;→ agent 一次性生成 (query 直喂) → auto build&lt;br&gt;&lt;b&gt;无 PRD / 设计 / 数据 / 页面阶段&lt;/b&gt;" vertex="1">
+          <mxGeometry height="110" width="290" x="1170" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="a-note" parent="1" style="shape=note;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;size=16;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="现状问题:&lt;br&gt;① T6 不读 query —「做个跑酷游戏」若表单没选 game → 误走通用管线, 产物形态错且不可中途纠正&lt;br&gt;② T11 三决策分散互不知晓: classifyScene(生效) / useOpenDesign 开关(断路) / od-select(不可达)&lt;br&gt;③ DS 预选死路 (开关门在预选检查之前)&lt;br&gt;④ 决策无统一记录、无成本统筹" vertex="1">
+          <mxGeometry height="190" width="310" x="60" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="ae1" edge="1" parent="1" source="a-q" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-post">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae2" edge="1" parent="1" source="a-post" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-server">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae3" edge="1" parent="1" source="a-server" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=12;" target="a-dag1" value="projectType=&#39;app&#39; (default)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae4" edge="1" parent="1" source="a-server" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=12;" target="a-dag2" value="projectType=&#39;game&#39;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="335" />
+              <mxPoint x="380" y="225" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ae5" edge="1" parent="1" source="a-c1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-c2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae6" edge="1" parent="1" source="a-c2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-c3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae7" edge="1" parent="1" source="a-c3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-c4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae8" edge="1" parent="1" source="a-c3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-c5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae9" edge="1" parent="1" source="a-c3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-c6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae10" edge="1" parent="1" source="a-c4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-c7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae11" edge="1" parent="1" source="a-c5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-c7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ae12" edge="1" parent="1" source="a-c7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-c8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aeg1" edge="1" parent="1" source="a-g1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-g2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aeg2" edge="1" parent="1" source="a-g2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="a-g3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-new" name="2-新方案拓扑">
+    <mxGraphModel dx="1664" dy="989" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="950" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="b-title" parent="1" style="text;html=1;fontSize=16;fontStyle=1;" value="新方案: query → 路由层(纯拓扑判定) → DAG 池; 模板/DS 留在通用拓扑节点内自决" vertex="1">
+          <mxGeometry height="30" width="1300" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b-q" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="用户 query&lt;br&gt;「做一个忍者跑酷游戏」" vertex="1">
+          <mxGeometry height="50" width="240" x="60" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-ex" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="显式选择 explicitTopology&lt;br&gt;表单 projectType:&lt;br&gt;&#39;auto&#39;(新默认) | &#39;app&#39; | &#39;game&#39;" vertex="1">
+          <mxGeometry height="70" width="240" x="60" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="b-router" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1;fontSize=13;" value="★ 路由层 routeTopology (L7 服务)" vertex="1">
+          <mxGeometry height="250" width="380" x="60" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="b-r1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" value="① 显式短路&lt;br&gt;≠&#39;auto&#39; → {topologyId=显式值, source:&#39;explicit&#39;}&lt;br&gt;(零 LLM 调用)" vertex="1">
+          <mxGeometry height="55" width="340" x="80" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="b-r2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" value="② 一次轻量 LLM&lt;br&gt;TOPOLOGY_CATALOG + query&lt;br&gt;maxTokens=50 · 60s 超时" vertex="1">
+          <mxGeometry height="60" width="340" x="80" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="b-r3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" value="③ 归一化校验: 输出 ∈ catalog?&lt;br&gt;合法→用 / 非法·失败→兜底 &#39;app&#39;&lt;br&gt;永不 throw · 宁可漏召不可误召" vertex="1">
+          <mxGeometry height="60" width="340" x="80" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="b-out" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="输出 RouteTopologyResult&lt;br&gt;{ topologyId (&#39;app&#39; 兜底, 恒非空),&lt;br&gt;source: explicit | llm | fallback,&lt;br&gt;raw, error }" vertex="1">
+          <mxGeometry height="100" width="380" x="60" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="b-disp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="server 分派 (T6 判定点替换)&lt;br&gt;topologyId → job.type&lt;br&gt;createApp | createPhaserGame&lt;br&gt;(现有通道)" vertex="1">
+          <mxGeometry height="100" width="260" x="490" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="b-dag1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=13;" value="create.yaml — app 通用管线 (15 节点, 拓扑结构不变)" vertex="1">
+          <mxGeometry height="340" width="720" x="790" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-m1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="scene-template&lt;br&gt;&lt;b&gt;模板维度节点内自决&lt;/b&gt;&lt;br&gt;(classifyScene 保留)" vertex="1">
+          <mxGeometry height="70" width="150" x="810" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="b-m2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="spec-app&lt;br&gt;PRD + projection&lt;br&gt;+ fanout 源" vertex="1">
+          <mxGeometry height="70" width="150" x="980" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="b-m3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="open-design | front-design&lt;br&gt;&lt;b&gt;设计维度节点内自决&lt;/b&gt;&lt;br&gt;(互斥机制保留)" vertex="1">
+          <mxGeometry height="80" width="170" x="1150" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="b-m4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="code-page ×N" vertex="1">
+          <mxGeometry height="70" width="150" x="1340" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="b-m5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="integrate → build" vertex="1">
+          <mxGeometry height="50" width="150" x="1340" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="b-m6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="data-def → data-gen" vertex="1">
+          <mxGeometry height="60" width="150" x="810" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="b-dag2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=13;" value="create-phaser-game.yaml — game 垂类 (3 节点)" vertex="1">
+          <mxGeometry height="200" width="720" x="790" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="b-h1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="app-name" vertex="1">
+          <mxGeometry height="50" width="150" x="810" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="b-h2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="app-icon (opt)" vertex="1">
+          <mxGeometry height="50" width="150" x="980" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="b-h3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="phaser-game-create&lt;br&gt;(query 直喂主力 agent)&lt;br&gt;&lt;b&gt;模板/DS 维度天然不存在&lt;/b&gt;&lt;br&gt;(无对应消费节点)" vertex="1">
+          <mxGeometry height="90" width="250" x="1150" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="b-note" parent="1" style="shape=note;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;size=16;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="设计要点:&lt;br&gt;① 路由层只回答唯一必须在 DAG 加载前定死的问题 — 拓扑分叉(不可逆)&lt;br&gt;② 模板/DS: 垂类拓扑无对应节点→维度自动消失; 通用拓扑→节点内自决(零节点改动)&lt;br&gt;③ topologyId 走现有 job.type 通道 — 零新落盘契约 · 零 DAG/注册表/节点改动&lt;br&gt;④ 扩展垂类 = TOPOLOGY_CATALOG 加一行 + 新 YAML + JOB_RUNS 一行" vertex="1">
+          <mxGeometry height="130" width="640" x="60" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="be1" edge="1" parent="1" source="b-q" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-router">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be2" edge="1" parent="1" source="b-ex" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=12;" target="b-router" value="显式优先">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be3" edge="1" parent="1" source="b-router" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be4" edge="1" parent="1" source="b-out" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-disp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be5" edge="1" parent="1" source="b-disp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=12;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="b-dag1" value="topologyId=&#39;app&#39;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be6" edge="1" parent="1" source="b-disp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=12;" target="b-dag2" value="topologyId=&#39;game&#39;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be7" edge="1" parent="1" source="b-m1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-m2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be8" edge="1" parent="1" source="b-m2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-m3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be9" edge="1" parent="1" source="b-m3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-m4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be10" edge="1" parent="1" source="b-m4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-m5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be11" edge="1" parent="1" source="b-m2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-m6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be12" edge="1" parent="1" source="b-m6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-m5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="beg1" edge="1" parent="1" source="b-h1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-h2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="beg2" edge="1" parent="1" source="b-h2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="b-h3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-router" name="3-路由层详解">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="950" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c-title" value="路由层 routeTopology: 输入 · 内部匹配规则 · 输出" style="text;html=1;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c-inq" value="输入① query: string&lt;br&gt;用户原始 query — 语义信号&lt;br&gt;例: 「做一个忍者跑酷游戏」" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c-ine" value="输入② explicitTopology&lt;br&gt;&#39;auto&#39; | &#39;app&#39; | &#39;game&#39;&lt;br&gt;来源: Dashboard 表单 projectType&lt;br&gt;&#39;auto&#39; = 未显式选择 (新默认值)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c-rc" value="routeTopology 内部执行 — L7 scene-template-node/src/services/topology-router.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="510" height="570" as="geometry" />
+        </mxCell>
+        <mxCell id="c-s1" value="① 显式短路&lt;br&gt;explicitTopology ≠ &#39;auto&#39;&lt;br&gt;→ {topologyId=显式值, source:&#39;explicit&#39;} 零 LLM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="440" y="150" width="470" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c-s2" value="② LLM 判定 — 一次轻量调用&lt;br&gt;system = 判定规则 (由 TOPOLOGY_CATALOG 渲染)&lt;br&gt;user = query&lt;br&gt;maxTokens=50 · 60s 超时 · loadLlmConfig(&#39;topology-router&#39;)&lt;br&gt;(纯分类任务, 可配最便宜模型)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="440" y="225" width="470" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="c-s3" value="③ 归一化 + 值域校验&lt;br&gt;raw → trim / 小写 / 去引号&lt;br&gt;∈ TOPOLOGY_CATALOG id 集合?&lt;br&gt;合法 → {topologyId, source:&#39;llm&#39;}&lt;br&gt;非法 → {topologyId:&#39;app&#39;, source:&#39;fallback&#39;}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="440" y="335" width="470" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c-s4" value="④ 异常降级 — 永不 throw&lt;br&gt;stopReason error/aborted → error:&#39;llm-error&#39;&lt;br&gt;Agent/apiKey/config 异常 → error:&#39;config-error&#39;&lt;br&gt;一律兜底 topologyId=&#39;app&#39;, 创建不阻断" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="440" y="440" width="470" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c-cat" value="TOPOLOGY_CATALOG — 单一真相源 (数据驱动)&lt;br&gt;app: 常规 Web 应用 — 内容展示/表单/列表详情/工具/导购等页面型&lt;br&gt;game: 游戏 — 玩法驱动(跑酷/射击/益智/模拟经营), 实时渲染/关卡/操控/得分语义&lt;br&gt;&lt;b&gt;扩展垂类 = 加一行 {id, description}, 判定代码零改动&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="440" y="535" width="470" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="c-rules" value="匹配规则 — LLM system prompt 的边界判定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="980" y="100" width="460" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="c-rulesbox" value="① 明确玩法语义 (关卡/角色操控/得分/物理引擎) → game&lt;br&gt;② 页面型应用 (即使含游戏化元素: 积分/排行榜/成就) → app&lt;br&gt;③ 混合形态 (游戏官网/游戏社区) → 按核心目的:&lt;br&gt;    玩 → game · 看 → app&lt;br&gt;④ 无法确定 → app&lt;br&gt;&lt;br&gt;&lt;b&gt;兜底偏置: 宁可漏判 game, 不可误判 game&lt;/b&gt;&lt;br&gt;(漏判 = 产物形态普通化, 可迭代纠正;&lt;br&gt; 误判 = 走错管线, 不可逆)&lt;br&gt;&lt;br&gt;判定质量取决于 description 的区分性&lt;br&gt;(写清「什么选我 + 什么不选我」)" style="text;html=1;align=left;verticalAlign=top;fontSize=12;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="145" width="420" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="c-out" value="输出 RouteTopologyResult" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="980" y="440" width="460" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="c-outbox" value="· topologyId: &#39;app&#39; | &#39;game&#39;&lt;br&gt;    恒非空 — 失败兜底 &#39;app&#39;&lt;br&gt;· source: &#39;explicit&#39; | &#39;llm&#39; | &#39;fallback&#39;&lt;br&gt;    决策来源 (可观测性)&lt;br&gt;· raw: LLM 原始输出&lt;br&gt;    (排障; 非 LLM 来源为 null)&lt;br&gt;· error: &#39;llm-error&#39; | &#39;config-error&#39; | null" style="text;html=1;align=left;verticalAlign=top;fontSize=12;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="480" width="420" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="c-cons" value="消费链路 (零新契约)&lt;br&gt;topologyId → server 分派 → job.type&lt;br&gt;→ JOB_RUNS 查表 → YAML DAG → runWorkflow&lt;br&gt;→ scene-template / 设计节点不受影响" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="980" y="700" width="460" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ce1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="c-inq" target="c-s1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="c-ine" target="c-s1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce3" value="&#39;auto&#39; 才进 LLM" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=12;" edge="1" parent="1" source="c-s1" target="c-s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce4" value="渲染进 system prompt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=11;" edge="1" parent="1" source="c-cat" target="c-s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce5" value="判定规则来源" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=11;" edge="1" parent="1" source="c-rules" target="c-s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="c-s2" target="c-s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="c-s3" target="c-s4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="c-s3" target="c-out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="c-s4" target="c-out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ce10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="c-out" target="c-cons">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
