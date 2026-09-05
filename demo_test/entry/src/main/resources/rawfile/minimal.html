@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>engine test</title>
+</head>
+<body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#0a59f7;">
+  <h1 id="label" style="color:#fff;font-size:48px;">ENGINE OK</h1>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var el = document.getElementById('label');
+      el.textContent = 'REPORTED ' + document.documentElement.scrollHeight + ' ' + window.innerWidth + 'x' + window.innerHeight + ' ' + getComputedStyle(document.body).backgroundColor;
+      console.log('[DIAG] height=' + document.documentElement.scrollHeight + ' viewport=' + window.innerWidth + 'x' + window.innerHeight + ' bg=' + getComputedStyle(document.body).backgroundColor + ' ua=' + navigator.userAgent.slice(0, 60));
+    });
+  </script>
+</body>
+</html>
